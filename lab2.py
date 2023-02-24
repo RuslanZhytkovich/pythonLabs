@@ -1,8 +1,21 @@
 # Вариант 3
+import pandas as pd
 import datetime
 
-class Person():
+def pandas_task():
+    states = pd.read_excel('https://github.com/datagy/mediumdata/raw/master/pythonexcel.xlsx', sheet_name='states')
+    sales = pd.read_excel('https://github.com/datagy/mediumdata/raw/master/pythonexcel.xlsx', sheet_name='sales')
+    print('Список из Excel:')
+    print(sales,'\n')
+    print('Список с операцией IF:')
+    print()
+    sales['MoreThan500'] = ['Yes' if x > 500 else 'No' for x in sales['Sales']]
+    print(sales,'\n')
+    print('Список с операцией связывания таблиц:')
+    sales = pd.merge(sales, states, how='left', on='City')
+    print(sales)
 
+class Person():
 
     def __init__(self, name='Руслан', surname='Житкович', birth_year = 2003):
         self.name = name
@@ -74,30 +87,36 @@ class Student(Enrolle):
 
 
 if __name__ == '__main__':
-    lst = []
+    match(input('1 -  для работы с классами, 2 - для работы с pandas\n> ')):
+        case '1':
 
-    petya = Enrolle()
-    misha = Enrolle('Миша','Угрумов', 2004, 'FKSIS')
-    katya = Enrolle('Катя','Задорнова',2004,'FKSIS')
+            lst = []
+            petya = Enrolle()
+            misha = Enrolle('Миша', 'Угрумов', 2004, 'FKSIS')
+            katya = Enrolle('Катя', 'Задорнова', 2004, 'FKSIS')
 
-    vasya = Student()
-    zhenya = Student('Евгений','Мальцев', 2000, 'FCP', 4)
-    pasha = Student('Павел', 'Кириянов', 2001, 'FCSIS', 3)
+            vasya = Student()
+            zhenya = Student('Евгений', 'Мальцев', 2000, 'FCP', 4)
+            pasha = Student('Павел', 'Кириянов', 2001, 'FCSIS', 3)
 
-    lst.append(petya)
-    lst.append(vasya)
-    lst.append(misha)
-    lst.append(katya)
-    lst.append(pasha)
+            lst.append(petya)
+            lst.append(vasya)
+            lst.append(misha)
+            lst.append(katya)
+            lst.append(pasha)
+
+            board1 = int(input('Введите левую границу возраста: '))
+            board2 = int(input('Введите правую границу возраста: '))
+
+            for i in range(len(lst)):
+                if (lst[i].get_age() >= board1 and lst[i].get_age() <= board2):
+                    print(lst[i].print_info())
+        case '2':
+            pandas_task()
 
 
 
-    board1 = int(input('Введите левую границу возраста: '))
-    board2 = int(input('Введите правую границу возраста: '))
 
-    for i in range(len(lst)):
-        if (lst[i].get_age() >= board1 and lst[i].get_age() <= board2):
-            print(lst[i].print_info())
 
 
 
